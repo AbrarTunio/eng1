@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechBridge Institute — English Basic Level Test I</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  :root{
+    --navy: #16233F;
+    --navy-deep: #0D1730;
+    --blue: #2F6FED;
+    --blue-soft: #E8EFFD;
+    --paper: #F6F7FB;
+    --ink: #1E2537;
+    --muted: #6B7280;
+    --good: #1E9E6D;
+    --bad: #E0553F;
+    --line: #DCE1EE;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
+
+  .brand-strip{
+    background: var(--navy-deep);
+    color: #fff;
+    padding: 14px 0;
+    border-bottom: 3px solid var(--blue);
+  }
+  .brand-strip .mark{
+    width: 30px; height: 30px;
+    background: linear-gradient(135deg, var(--blue), #7CA9FF);
+    border-radius: 7px;
+    display: inline-flex;
+    align-items:center; justify-content:center;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700; font-size:.8rem;
+    margin-right: 10px;
+  }
+  .brand-strip .brand-name{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:.02em;
+    font-size:1.05rem;
+  }
+  .brand-strip .brand-sub{
+    color:#93A2C4; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  }
+
+  .stage{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 18px 80px;
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.72rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color: var(--blue);
+    margin-bottom: 10px;
+  }
+
+  h1.hero-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    color: var(--navy);
+    line-height:1.12;
+    margin-bottom: 10px;
+  }
+
+  .lede{ color: var(--muted); font-size:1rem; max-width: 46ch; }
+
+  .card-panel{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(20,30,60,.03);
+  }
+
+  /* ---- Name screen ---- */
+  #screen-start .card-panel{ padding: 34px 30px; margin-top: 30px; }
+  .field-label{
+    font-size:.78rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+    color: var(--navy); margin-bottom:8px; display:block;
+  }
+  .form-control.big-input{
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 1.02rem;
+  }
+  .form-control.big-input:focus{
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px var(--blue-soft);
+  }
+  .meta-row{
+    display:flex; gap: 22px; margin: 22px 0 26px;
+    font-family:'JetBrains Mono', monospace; font-size:.82rem; color: var(--muted);
+  }
+  .meta-row b{ color: var(--navy); }
+
+  .btn-brand{
+    background: var(--navy);
+    color:#fff;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 26px;
+    font-weight:600;
+    font-size: .96rem;
+    transition: background .15s ease, transform .1s ease;
+  }
+  .btn-brand:hover{ background: var(--blue); color:#fff; }
+  .btn-brand:active{ transform: scale(.98); }
+  .btn-brand:disabled{ background:#B9C0D4; }
+
+  .btn-ghost{
+    background:transparent; color:var(--navy); border:1.5px solid var(--line);
+    border-radius:10px; padding:12px 24px; font-weight:600; font-size:.94rem;
+  }
+  .btn-ghost:hover{ border-color: var(--blue); color: var(--blue); }
+
+  /* ---- Quiz screen ---- */
+  #screen-quiz{ display:none; }
+
+  .ledger{
+    display:flex; gap:5px; flex-wrap:wrap; margin-bottom: 26px;
+  }
+  .ledger .tick{
+    width: 16px; height: 6px;
+    border-radius: 3px;
+    background: var(--line);
+  }
+  .ledger .tick.done{ background: var(--blue); }
+  .ledger .tick.current{ background: var(--navy); }
+
+  .q-count{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.8rem; color: var(--muted); margin-bottom: 6px;
+  }
+  .q-count b{ color: var(--navy); }
+
+  .q-card{
+    padding: 30px 28px;
+  }
+
+  .q-text{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: 1.3rem;
+    color: var(--navy);
+    line-height:1.35;
+    margin-bottom: 22px;
+  }
+
+  .opt{
+    display:flex; align-items:flex-start; gap: 13px;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 11px;
+    cursor:pointer;
+    transition: border-color .12s ease, background .12s ease;
+    background:#fff;
+  }
+  .opt:hover{ border-color:#B9C9F5; background: var(--blue-soft); }
+  .opt.selected{ border-color: var(--blue); background: var(--blue-soft); }
+  .opt .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size:.78rem;
+    color: var(--navy);
+    width: 24px; height:24px;
+    border-radius:50%;
+    border: 1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    background:#fff;
+  }
+  .opt.selected .tag{ background: var(--blue); border-color: var(--blue); color:#fff; }
+  .opt .opt-text{ font-size:.98rem; padding-top:1px; }
+
+  .nav-row{
+    display:flex; justify-content: space-between; align-items:center; margin-top: 8px;
+  }
+
+  /* ---- Result screen ---- */
+  #screen-result{ display:none; }
+
+  .score-hero{
+    background: var(--navy-deep);
+    color:#fff;
+    border-radius: 16px;
+    padding: 38px 30px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    margin-top: 24px;
+  }
+  .score-hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(circle at 20% 0%, rgba(47,111,237,.35), transparent 55%);
+  }
+  .score-hero .big-num{
+    font-family:'Fraunces', serif; font-weight:700;
+    font-size: 4rem; line-height:1; position:relative;
+  }
+  .score-hero .out-of{
+    font-family:'JetBrains Mono', monospace; color:#93A2C4; letter-spacing:.1em;
+    font-size:.85rem; text-transform:uppercase; position:relative;
+  }
+  .score-hero .percent-badge{
+    display:inline-block; margin-top:14px;
+    background: rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.2);
+    padding: 6px 16px; border-radius: 999px;
+    font-family:'JetBrains Mono', monospace; font-size:.85rem;
+    position:relative;
+  }
+
+  .stat-row{ display:flex; gap: 14px; margin-top: 22px; }
+  .stat-box{
+    flex:1; background:#fff; border:1px solid var(--line); border-radius:12px;
+    padding: 16px 14px; text-align:center;
+  }
+  .stat-box .n{ font-family:'Fraunces', serif; font-weight:700; font-size:1.7rem; }
+  .stat-box .l{ font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color: var(--muted); margin-top:2px; }
+  .stat-box.good .n{ color: var(--good); }
+  .stat-box.bad .n{ color: var(--bad); }
+
+  .review-item{
+    border:1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin-bottom:10px;
+  }
+  .review-item.wrong{ border-color: rgba(224,85,63,.35); background: rgba(224,85,63,.04); }
+  .review-item.right{ border-color: rgba(30,158,109,.3); background: rgba(30,158,109,.04); }
+  .review-item .rq{ font-weight:600; font-size:.94rem; color: var(--navy); margin-bottom:6px; }
+  .review-item .ra{ font-size:.86rem; color: var(--muted); }
+  .review-item .ra b{ color: var(--ink); }
+  .review-item .pill{
+    font-family:'JetBrains Mono', monospace; font-size:.68rem; font-weight:700;
+    padding:2px 8px; border-radius:999px; text-transform:uppercase; letter-spacing:.05em;
+  }
+  .pill.right-pill{ background: rgba(30,158,109,.12); color: var(--good); }
+  .pill.wrong-pill{ background: rgba(224,85,63,.12); color: var(--bad); }
+
+  .section-label{
+    font-family:'JetBrains Mono', monospace; font-size:.75rem; letter-spacing:.12em;
+    text-transform:uppercase; color: var(--muted); margin: 30px 0 12px;
+  }
+
+  footer.foot{
+    text-align:center; color: var(--muted); font-size:.8rem; margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="brand-strip">
+  <div class="stage" style="padding:0 18px; max-width:720px; display:flex; align-items:center; justify-content:space-between;">
+    <div style="display:flex; align-items:center;">
+      <span class="mark">TB</span>
+      <div>
+        <div class="brand-name">TechBridge Institute</div>
+        <div class="brand-sub">Hyderabad</div>
+      </div>
+    </div>
+    <div class="brand-sub" style="text-align:right;">English · Basic Level</div>
+  </div>
+</div>
+
+<div class="stage">
+
+  <!-- ============ START SCREEN ============ -->
+  <section id="screen-start">
+    <div class="eyebrow">English Language · Test I</div>
+    <h1 class="hero-title">Basic Level Assessment</h1>
+    <p class="lede">28 questions on sentence structure, word formation, and sentence types. Answer one question at a time — your progress is tracked as you go.</p>
+
+    <div class="card-panel">
+      <label class="field-label" for="studentName">Full name</label>
+      <input type="text" id="studentName" class="form-control big-input" placeholder="e.g. Ayesha Khan" autocomplete="off">
+      <div id="nameWarning" style="color:var(--bad); font-size:.82rem; margin-top:8px; display:none;">Please enter your name to begin.</div>
+
+      <div class="meta-row">
+        <div>Questions <b>28</b></div>
+        <div>Time limit <b>40 min</b></div>
+        <div>Marks <b>30</b></div>
+      </div>
+
+      <button class="btn-brand" id="startBtn" style="width:100%;">Start Quiz →</button>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ SCREEN ============ -->
+  <section id="screen-quiz">
+    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+      <div class="q-count">Question <b id="qNum">1</b> of <b>28</b></div>
+      <div class="q-count" id="studentTag"></div>
+    </div>
+    <div class="ledger" id="ledger"></div>
+
+    <div class="card-panel q-card">
+      <div class="q-text" id="qText"></div>
+      <div id="optionsWrap"></div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-ghost" id="prevBtn">← Previous</button>
+      <button class="btn-brand" id="nextBtn">Next →</button>
+    </div>
+  </section>
+
+  <!-- ============ RESULT SCREEN ============ -->
+  <section id="screen-result">
+    <div class="eyebrow">Result</div>
+    <h1 class="hero-title" id="resultName">Score Report</h1>
+
+    <div class="score-hero">
+      <div class="big-num" id="scoreMarks">0</div>
+      <div class="out-of">out of 30 marks</div>
+      <div class="percent-badge" id="scorePercent">0%</div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box good">
+        <div class="n" id="rightCount">0</div>
+        <div class="l">Correct</div>
+      </div>
+      <div class="stat-box bad">
+        <div class="n" id="wrongCount">0</div>
+        <div class="l">Incorrect</div>
+      </div>
+      <div class="stat-box">
+        <div class="n" id="skipCount">0</div>
+        <div class="l">Skipped</div>
+      </div>
+    </div>
+
+    <div class="section-label">Answer review</div>
+    <div id="reviewList"></div>
+
+    <div style="text-align:center; margin-top:26px;">
+      <button class="btn-ghost" id="retakeBtn">Retake Quiz</button>
+    </div>
+  </section>
+
+  <footer class="foot">TechBridge Institute, Hyderabad — English Basic Level Test I</footer>
+</div>
+
+<script>
+const QUESTIONS = [
+  { q: "Which statement best defines language?", opts: ["A collection of letters","A system used to communicate ideas, thoughts, and feelings","A way to write stories only","A group of sentences"], correct: 1 },
+  { q: "Which of the following is NOT a purpose of language?", opts: ["Communication","Expression of emotion","Solving mathematics only","Sharing information"], correct: 2 },
+  { q: "Which of the following is a complete sentence?", opts: ["After the meeting","Because she was tired","The teacher explained the lesson.","During the holiday"], correct: 2 },
+  { q: "Which statement is true?", opts: ["Every letter is a word.","Every word is a sentence.","Every sentence is made of words.","Every alphabet is a sentence."], correct: 2 },
+  { q: "Which sentence is imperative but does NOT express a command?", opts: ["Close the door.","Please pass me the salt.","Don't talk.","Stand up."], correct: 1 },
+  { q: "Which word is formed by joining two complete words?", opts: ["Unhappy","Carefully","Sunlight","Running"], correct: 2 },
+  { q: "Which of the following is NOT a compound word?", opts: ["Football","Bedroom","Teacher","Newspaper"], correct: 2 },
+  { q: "Which word contains a prefix?", opts: ["Rewrite","Player","Friendship","Quickly"], correct: 0 },
+  { q: "Which word contains a suffix?", opts: ["Impossible","Teacher","Disagree","Rewrite"], correct: 1 },
+  { q: "Which word is correctly called a palindrome?", opts: ["Madam","Apple","Water","Friend"], correct: 0 },
+  { q: "Which pair are homophones?", opts: ["Right – Write","Book – Notebook","Big – Large","Eat – Food"], correct: 0 },
+  { q: "Which word is a homonym?", opts: ["Bat","Big","Happy","Run"], correct: 0 },
+  { q: "Which group forms a complete sentence?", opts: ["After the class","Playing football","The students completed the test.","Because he was tired"], correct: 2 },
+  { q: "Which sentence is NOT complete?", opts: ["She is reading a novel.","They went to school.","Because it was raining.","We enjoyed the trip."], correct: 2 },
+  { q: "Which sentence has the correct capitalization and punctuation?", opts: ["where are you going?","Where are you going?","Where are you going.","where are you going."], correct: 1 },
+  { q: "Which sentence is declarative?", opts: ["Please close the window.","I enjoy learning English.","What a beautiful garden!","Can you help me?"], correct: 1 },
+  { q: "Which sentence is interrogative?", opts: ["You are late.","Why are you late?","Please be quiet.","What a surprise!"], correct: 1 },
+  { q: "Which sentence is imperative?", opts: ["Open your notebook.","The class starts at 9.","Where is your book?","How beautiful this is!"], correct: 0 },
+  { q: "Which sentence is exclamatory?", opts: ["Shut the door.","She is my sister.","What an amazing performance!","Do you know him?"], correct: 2 },
+  { q: "Which sentence expresses a command?", opts: ["Sit down quietly.","I am hungry.","Are you ready?","What a nice day!"], correct: 0 },
+  { q: "Which sentence expresses a request rather than a command?", opts: ["Please help me with this question.","Help me now!","I need help.","Why didn't you help me?"], correct: 0 },
+  { q: "Which sentence expresses a question?", opts: ["She is absent today.","Please come in.","Did you finish your homework?","What a lovely picture!"], correct: 2 },
+  { q: "Which punctuation mark correctly completes: \"What a wonderful idea___\"", opts: [".",",","?","!"], correct: 3 },
+  { q: "Which sentence has a complete thought?", opts: ["Before going home","When the bell rang","The teacher explained the lesson clearly.","Although he was tired"], correct: 2 },
+  { q: "Which statement is correct?", opts: ["Letters form words, and words form sentences.","Words form letters.","Sentences form words.","Alphabets are made from words."], correct: 0 },
+  { q: "Which sentence is both grammatically complete and meaningful?", opts: ["Running in the park.","Because she was absent.","The children are playing happily.","After the movie."], correct: 2 },
+  { q: "Which sentence is correctly matched with its purpose?", opts: ["Please open the door. — Interrogative","Where do you live? — Imperative","What a fantastic match! — Exclamatory","I am a teacher. — Imperative"], correct: 2 },
+  { q: "Which sentence shows the correct order?", opts: ["Letters → Sentences → Words","Words → Letters → Sentences","Letters → Words → Sentences","Sentences → Letters → Words"], correct: 2 }
+];
+
+const TOTAL_MARKS = 30;
+const MARKS_PER_Q = TOTAL_MARKS / QUESTIONS.length;
+
+let studentName = "";
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+
+const screenStart = document.getElementById('screen-start');
+const screenQuiz = document.getElementById('screen-quiz');
+const screenResult = document.getElementById('screen-result');
+
+const nameInput = document.getElementById('studentName');
+const nameWarning = document.getElementById('nameWarning');
+const startBtn = document.getElementById('startBtn');
+
+const ledgerEl = document.getElementById('ledger');
+const qNumEl = document.getElementById('qNum');
+const qTextEl = document.getElementById('qText');
+const optionsWrap = document.getElementById('optionsWrap');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const studentTag = document.getElementById('studentTag');
+
+function buildLedger(){
+  ledgerEl.innerHTML = "";
+  QUESTIONS.forEach((_, i) => {
+    const t = document.createElement('div');
+    t.className = 'tick';
+    ledgerEl.appendChild(t);
+  });
+}
+
+function updateLedger(){
+  const ticks = ledgerEl.querySelectorAll('.tick');
+  ticks.forEach((t, i) => {
+    t.classList.remove('done','current');
+    if (i === current) t.classList.add('current');
+    else if (answers[i] !== null) t.classList.add('done');
+  });
+}
+
+function renderQuestion(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.textContent = item.q;
+  optionsWrap.innerHTML = "";
+  const letters = ['A','B','C','D'];
+
+  item.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'opt' + (answers[current] === i ? ' selected' : '');
+    div.innerHTML = `<span class="tag">${letters[i]}</span><span class="opt-text">${opt}</span>`;
+    div.addEventListener('click', () => {
+      answers[current] = i;
+      renderQuestion();
+      updateLedger();
+    });
+    optionsWrap.appendChild(div);
+  });
+
+  prevBtn.style.visibility = current === 0 ? 'hidden' : 'visible';
+  nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Submit Quiz →' : 'Next →';
+  updateLedger();
+}
+
+startBtn.addEventListener('click', () => {
+  const val = nameInput.value.trim();
+  if (!val){
+    nameWarning.style.display = 'block';
+    nameInput.focus();
+    return;
+  }
+  studentName = val;
+  studentTag.textContent = studentName;
+  screenStart.style.display = 'none';
+  screenQuiz.style.display = 'block';
+  buildLedger();
+  renderQuestion();
+});
+
+nameInput.addEventListener('input', () => { nameWarning.style.display = 'none'; });
+nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') startBtn.click(); });
+
+prevBtn.addEventListener('click', () => {
+  if (current > 0){ current--; renderQuestion(); }
+});
+
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){
+    current++;
+    renderQuestion();
+  } else {
+    submitQuiz();
+  }
+});
+
+function submitQuiz(){
+  let right = 0, wrong = 0, skipped = 0;
+  const reviewList = document.getElementById('reviewList');
+  reviewList.innerHTML = "";
+  const letters = ['A','B','C','D'];
+
+  QUESTIONS.forEach((item, i) => {
+    const given = answers[i];
+    const row = document.createElement('div');
+
+    if (given === null){
+      skipped++;
+      row.className = 'review-item';
+      row.innerHTML = `
+        <div class="rq">${i+1}. ${item.q} <span class="pill" style="background:rgba(107,114,128,.12); color:#6B7280;">Skipped</span></div>
+        <div class="ra">Correct answer: <b>${letters[item.correct]}. ${item.opts[item.correct]}</b></div>`;
+    } else if (given === item.correct){
+      right++;
+      row.className = 'review-item right';
+      row.innerHTML = `
+        <div class="rq">${i+1}. ${item.q} <span class="pill right-pill">Correct</span></div>
+        <div class="ra">Your answer: <b>${letters[given]}. ${item.opts[given]}</b></div>`;
+    } else {
+      wrong++;
+      row.className = 'review-item wrong';
+      row.innerHTML = `
+        <div class="rq">${i+1}. ${item.q} <span class="pill wrong-pill">Incorrect</span></div>
+        <div class="ra">Your answer: <b>${letters[given]}. ${item.opts[given]}</b> &nbsp;·&nbsp; Correct: <b>${letters[item.correct]}. ${item.opts[item.correct]}</b></div>`;
+    }
+    reviewList.appendChild(row);
+  });
+
+  const marks = Math.round(right * MARKS_PER_Q * 10) / 10;
+  const percent = Math.round((right / QUESTIONS.length) * 100);
+
+  document.getElementById('resultName').textContent = studentName + "'s Score Report";
+  document.getElementById('scoreMarks').textContent = marks;
+  document.getElementById('scorePercent').textContent = percent + '%';
+  document.getElementById('rightCount').textContent = right;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('skipCount').textContent = skipped;
+
+  screenQuiz.style.display = 'none';
+  screenResult.style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+document.getElementById('retakeBtn').addEventListener('click', () => {
+  current = 0;
+  answers = new Array(QUESTIONS.length).fill(null);
+  screenResult.style.display = 'none';
+  screenStart.style.display = 'block';
+  nameInput.value = '';
+  window.scrollTo(0,0);
+});
+</script>
+</body>
+</html>
